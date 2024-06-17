@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useReducer, useEffect } from "react";
 
-export const initialState = { theme: "", dentists: [], favs: [] };
+export const initialState = { theme: false, dentists: [], favs: [] };
 
 export const ContextGlobal = createContext();
 
@@ -22,6 +22,9 @@ const reducer = (state, action) => {
       const filteredFavs = state.favs.filter((fav) => fav.id != action.payload);
       localStorage.setItem("favs", JSON.stringify(filteredFavs));
       return { ...state, favs: filteredFavs };
+    case "SWICH_THEME":
+      const newTheme = !state.theme;
+      return { ...state, theme: newTheme };
   }
 };
 
@@ -38,6 +41,15 @@ export const Context = ({ children }) => {
   useEffect(() => {
     dispatch({ type: "GET_FAVS"});
   }, []);
+
+  useEffect(() => {
+    if (state.theme) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [state.theme]);
+
   return (
     <ContextGlobal.Provider value={{ state, dispatch }}>
       {children}
