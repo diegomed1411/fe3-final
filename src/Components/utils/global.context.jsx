@@ -22,9 +22,8 @@ const reducer = (state, action) => {
       const filteredFavs = state.favs.filter((fav) => fav.id != action.payload);
       localStorage.setItem("favs", JSON.stringify(filteredFavs));
       return { ...state, favs: filteredFavs };
-    case "SWICH_THEME":
-      const newTheme = !state.theme;
-      return { ...state, theme: newTheme };
+    case "SWITCH_THEME":
+      return { ...state, theme: !state.theme };
   }
 };
 

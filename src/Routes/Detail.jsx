@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useContextGlobal } from "../Components/utils/global.context";
 import axios from "axios";
@@ -24,7 +24,8 @@ const Detail = () => {
   }, []);
 
   return (
-    <>
+
+    <div className={state.theme ? "dark" : "light"} >
       <h1>Detail Dentist {dentist.id}</h1>
       {/* aqui deberan renderizar la informacion en detalle de un user en especifico */}
       {/* Deberan mostrar el name - email - phone - website por cada user en especifico */}
@@ -53,7 +54,7 @@ const Detail = () => {
       ) : (
         <p>Cargando</p>
       )}
-    </>
+    </div>
   )
 }
 

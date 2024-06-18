@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useContextGlobal } from "../Components/utils/global.context";
 
@@ -21,6 +21,7 @@ const Card = ({ name, username, id }) => {
   }, [state.favs]);
 
   return (
+    <div className={state.theme ? "dark" : "light"}>
     <div className="card">
         {/* En cada card deberan mostrar en name - username y el id */}
 
@@ -41,6 +42,7 @@ const Card = ({ name, username, id }) => {
       <button onClick={addFav} className="favButton">
         {isFav ? "❤️" : "🩶"}
       </button>
+    </div>
     </div>
   );
 };
