@@ -9,8 +9,8 @@ const Contact = () => {
   
   return (
     <div className={state.theme ? "dark" : "light"} >
-      <h2>Want to know more?</h2>
-      <p>Send us your questions and we will contact you</p>
+      <h2 style={{ textAlign: 'center' }}>Want to know more?</h2>
+      <p style={{ textAlign: 'center' }}>Send us your questions and we will contact you</p>
       <Form/>
     </div>
   )
