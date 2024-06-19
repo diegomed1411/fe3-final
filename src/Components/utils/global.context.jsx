@@ -1,7 +1,11 @@
 import axios from "axios";
 import { createContext, useContext, useReducer, useEffect } from "react";
 
-export const initialState = { theme: false, dentists: [], favs: [] };
+const initialTheme = localStorage.getItem("theme")
+  ? JSON.parse(localStorage.getItem("theme"))
+  : false;
+
+export const initialState = { theme: initialTheme, dentists: [], favs: [] };
 
 export const ContextGlobal = createContext();
 
@@ -10,10 +14,10 @@ const reducer = (state, action) => {
     case "GET_DENTISTS":
       return { ...state, dentists: action.payload };
     case "GET_FAVS":
-      const localData = localStorage.getItem("favs")
+      const localFavs = localStorage.getItem("favs")
         ? JSON.parse(localStorage.getItem("favs"))
         : [];
-      return { ...state, favs: localData };
+      return { ...state, favs: localFavs };
     case "ADD_FAV":
       const newFavs = [...state.favs, action.payload];
       localStorage.setItem("favs", JSON.stringify(newFavs));
@@ -23,7 +27,9 @@ const reducer = (state, action) => {
       localStorage.setItem("favs", JSON.stringify(filteredFavs));
       return { ...state, favs: filteredFavs };
     case "SWITCH_THEME":
-      return { ...state, theme: !state.theme };
+      const darkMode = !state.theme;
+      localStorage.setItem("theme", JSON.stringify(darkMode));
+      return { ...state, theme: darkMode };
   }
 };
 
@@ -38,14 +44,14 @@ export const Context = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    dispatch({ type: "GET_FAVS"});
+    dispatch({ type: "GET_FAVS" });
   }, []);
 
   useEffect(() => {
     if (state.theme) {
-      document.body.classList.add('dark');
+      document.body.classList.add("dark");
     } else {
-      document.body.classList.remove('dark');
+      document.body.classList.remove("dark");
     }
   }, [state.theme]);
 

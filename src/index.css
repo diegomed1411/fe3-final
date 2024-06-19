@@ -126,6 +126,15 @@ tr:nth-child(even) {
   color: white;
 }
 
+.dark > .card {
+  background-color: #6e7983;
+}
+
+.dark > .card > a {
+  color: white;
+}
+
+
 
 /* The switch - the box around the slider */
 .switch {
@@ -168,7 +177,7 @@ tr:nth-child(even) {
 }
 
 input:checked + .slider {
-  background-color: #0c5c9e;
+  background-color: #6e7983;
 }
 
 input:focus + .slider {
